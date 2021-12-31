@@ -1,13 +1,14 @@
-import {BaseLayout} from './layout'
-import {BrowserRouter as Router} from 'react-router-dom'
-import React from "react";
+import React, {Suspense} from "react";
+import Router from './routes'
+import Loading from "./components/Loading";
 
 const App: React.FC = () => {
-
   return (
-    <Router>
-      <BaseLayout/>
-    </Router>
+    <div className='app'>
+      <Suspense fallback={<Loading type={'screen'} size='large'/>}>
+        <Router/>
+      </Suspense>
+    </div>
   )
 }
 

@@ -1,27 +1,33 @@
-import { ComponentName } from '../pages'
+import {RouteComponent} from '../pages'
+import {LayoutComponent} from "../layout";
 
 import * as Icon from '@ant-design/icons'
 
 export type IconType = keyof typeof Icon
 
-export interface IMenuBase {
+export interface IRoute {
   path: string
   title: string // 标题
   icon?: IconType // 图标
-  component?: ComponentName // 组件
+  component?: RouteComponent | LayoutComponent // 组件
   query?: string // 查询参数
-  route?: string // 路由地址
+  hidden?: boolean// 是否隐藏
   needLogin?: boolean // 需要登录
+  children?: IRoute[]
 }
 
-export interface IMenu extends IMenuBase {
-  children?: IMenu[]
-}
-
-const routes: IMenu[] = [
-  // 菜单相关路由
+export const staticRoutes: IRoute[] = [
   {
-    path: '/',
+    path: '/login',
+    title: '登录',
+    hidden: true,
+    component: 'Login'
+  }
+]
+
+export const asyncRoutes: IRoute[] = [
+  {
+    path: '/dashboard',
     title: '首页',
     icon: 'HomeOutlined',
     component: 'Home'
@@ -47,148 +53,44 @@ const routes: IMenu[] = [
             component: 'Test'
           }
         ]
+      },
+      {
+        path: '/nest-1/nest-1-2',
+        title: 'nest 1-2',
+        children: [
+          {
+            path: '/nest-1/nest-1-2/nest-1-2-1',
+            title: 'nest 1-2-1',
+            component: 'Test'
+          },
+          {
+            path: '/nest-1/nest-1-2/nest-1-2-2',
+            title: 'nest 1-2-2',
+            component: 'Test'
+          }
+        ]
       }
     ]
   }
-  // {
-  //   key: '/app/ui',
-  //   title: 'UI',
-  //   icon: 'scan',
-  //   children: [
-  //     { key: '/app/ui/buttons', title: '按钮', component: 'Buttons' },
-  //     { key: '/app/ui/icons', title: '图标', component: 'Icons' },
-  //     { key: '/app/ui/spins', title: '加载中', component: 'Spins' },
-  //     { key: '/app/ui/modals', title: '对话框', component: 'Modals' },
-  //     {
-  //       key: '/app/ui/notifications',
-  //       title: '通知提醒框',
-  //       component: 'Notifications'
-  //     },
-  //     { key: '/app/ui/tabs', title: '标签页', component: 'Tabs' },
-  //     { key: '/app/ui/banners', title: '轮播图', component: 'Banners' },
-  //     { key: '/app/ui/wysiwyg', title: '富文本', component: 'WysiwygBundle' },
-  //     { key: '/app/ui/drags', title: '拖拽', component: 'Drags' },
-  //     { key: '/app/ui/gallery', title: '画廊', component: 'Gallery' },
-  //     { key: '/app/ui/map', title: '地图', component: 'MapUi' }
-  //   ]
-  // },
-  // {
-  //   key: '/app/animation',
-  //   title: '动画',
-  //   icon: 'rocket',
-  //   children: [
-  //     {
-  //       key: '/app/animation/basicAnimations',
-  //       title: '基础动画',
-  //       component: 'BasicAnimations'
-  //     },
-  //     {
-  //       key: '/app/animation/exampleAnimations',
-  //       title: '动画案例',
-  //       component: 'ExampleAnimations'
-  //     }
-  //   ]
-  // },
-  // {
-  //   key: '/app/table',
-  //   title: '表格',
-  //   icon: 'copy',
-  //   children: [
-  //     {
-  //       key: '/app/table/basicTable',
-  //       title: '基础表格',
-  //       component: 'BasicTable'
-  //     },
-  //     {
-  //       key: '/app/table/advancedTable',
-  //       title: '高级表格',
-  //       component: 'AdvancedTable'
-  //     },
-  //     {
-  //       key: '/app/table/asynchronousTable',
-  //       title: '异步表格',
-  //       component: 'AsynchronousTable'
-  //     }
-  //   ]
-  // },
-  // {
-  //   key: '/app/chart',
-  //   title: '图表',
-  //   icon: 'area-chart',
-  //   children: [
-  //     { key: '/app/chart/echarts', title: 'echarts', component: 'Echarts' },
-  //     { key: '/app/chart/recharts', title: 'recharts', component: 'Recharts' }
-  //   ]
-  // },
-  // {
-  //   key: '/children4',
-  //   title: '页面',
-  //   icon: 'switcher',
-  //   children: [
-  //     { key: '/login', title: '登录' },
-  //     { key: '/404', title: '404' }
-  //   ]
-  // },
-  // {
-  //   key: '/app/auth',
-  //   title: '权限管理',
-  //   icon: 'safety',
-  //   children: [
-  //     { key: '/app/auth/basic', title: '基础演示', component: 'AuthBasic' },
-  //     {
-  //       key: '/app/auth/routerEnter',
-  //       title: '路由拦截',
-  //       component: 'RouterEnter'
-  //     }
-  //   ]
-  // },
-  // {
-  //   key: '/app/cssModule',
-  //   title: 'cssModule',
-  //   icon: 'star',
-  //   component: 'Cssmodule'
-  // },
-  // {
-  //   key: '/app/extension',
-  //   title: '功能扩展',
-  //   icon: 'bars',
-  //   children: [
-  //     {
-  //       key: '/app/extension/queryParams',
-  //       title: '问号形式参数',
-  //       component: 'QueryParams',
-  //       query: '?param1=1&param2=2'
-  //     },
-  //     {
-  //       key: '/app/extension/visitor',
-  //       title: '访客模式',
-  //       component: 'Visitor',
-  //       needLogin: true
-  //     },
-  //     {
-  //       key: '/app/extension/multiple',
-  //       title: '多级菜单',
-  //       children: [
-  //         {
-  //           key: '/app/extension/multiple/child',
-  //           title: '多级菜单子菜单',
-  //           children: [
-  //             {
-  //               key: '/app/extension/multiple/child/child',
-  //               title: '多级菜单子子菜单',
-  //               component: 'MultipleMenu'
-  //             }
-  //           ]
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       key: '/app/extension/env',
-  //       title: '环境配置',
-  //       component: 'Env'
-  //     }
-  //   ]
-  // }
 ]
 
-export default routes
+export const errorRoutes: IRoute[] = [
+  {
+    path: '*',
+    title: 'page not found',
+    hidden: true,
+    component: 'Error404'
+  }
+]
+
+export const routes: IRoute[] = [
+  ...staticRoutes,
+  {
+    path: '/',
+    title: '',
+    component: 'BaseLayout',
+    children: asyncRoutes
+  },
+  ...errorRoutes
+]
+

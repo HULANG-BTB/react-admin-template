@@ -1,31 +1,30 @@
 import './index.scss'
 
-import {Breadcrumb, Layout, Menu} from 'antd'
-import React, {useState} from 'react'
+import {Breadcrumb, Layout, Menu, Spin} from 'antd'
+import React, {Suspense, useState} from 'react'
 import * as Icon from '@ant-design/icons'
-import {Route, Link, useLocation, Routes, Outlet} from 'react-router-dom'
-import routes, {IMenu, IMenuBase} from '../../routes/routes'
+import {Link, useLocation, Outlet} from 'react-router-dom'
+import {IRoute, asyncRoutes} from '../../routes/routes'
 import {MenuFoldOutlined, MenuUnfoldOutlined} from '@ant-design/icons'
-import {components} from '../../pages'
 import SubMenu from 'antd/lib/menu/SubMenu'
 
 const {Header, Sider, Content} = Layout
 
-export const BaseLayout: React.FC = () => {
+const BaseLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false)
 
   const toggleSideMenu = () => {
     setCollapsed(!collapsed)
   }
 
-  const createMenu = (routes: IMenu[]) => {
-    const menu = (route: IMenuBase) => {
+  const createMenu = (routes: IRoute[]) => {
+    const menu = (route: IRoute) => {
       const MenuIcon = route.icon && (Icon[route.icon] as React.FC)
       return (
         <Menu.Item
           key={route.path}
           title={route.title}
-          icon={MenuIcon ? <MenuIcon/> : undefined}
+          icon={MenuIcon ? <MenuIcon/> : null}
         >
           <Link to={route.path}>
             {route.title}
@@ -34,14 +33,14 @@ export const BaseLayout: React.FC = () => {
       )
     }
 
-    const subMenu = (route: IMenu) => {
+    const subMenu = (route: IRoute) => {
       if (route.children) {
         const MenuIcon = route.icon && (Icon[route.icon] as React.FC)
         return (
           <SubMenu
             key={route.path}
             title={route.title}
-            icon={MenuIcon ? <MenuIcon/> : undefined}
+            icon={MenuIcon ? <MenuIcon/> : null}
           >
             {createMenu(route.children)}
           </SubMenu>
@@ -49,38 +48,12 @@ export const BaseLayout: React.FC = () => {
       }
     }
 
-    return routes.map((route) => {
+    return routes.filter(route => route.hidden !== true).map((route) => {
       return route.component ? menu(route) : subMenu(route)
     })
   }
 
   const {pathname} = useLocation()
-
-
-
-  const createRoutes = (routes: IMenu[]) => {
-    const retRoutes: JSX.Element[] = []
-    routes.forEach((route) => {
-      if (route.component) {
-        const Component = components[route.component]
-        retRoutes.push(
-          <Route
-            key={route.path}
-            path={route.path}
-            element={Component ? <Component/> : undefined}
-          />
-        )
-      }
-      if (route.children) {
-        retRoutes.push(
-          <Route key={route.path} path={route.path} element={<Outlet/>}>
-            {createRoutes(route.children)}
-          </Route>
-        )
-      }
-    })
-    return retRoutes
-  }
 
   return (
     <Layout className="app-container">
@@ -92,7 +65,7 @@ export const BaseLayout: React.FC = () => {
       >
         <div className="logo"/>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={[pathname]}>
-          {createMenu(routes)}
+          {createMenu(asyncRoutes)}
         </Menu>
       </Sider>
       <Layout className="content-container">
@@ -106,7 +79,7 @@ export const BaseLayout: React.FC = () => {
           )}
         </Header>
         <Content className="app-content">
-          <div className="app-tab-view">
+          <div className="app-breadcrumb">
             <Breadcrumb>
               <Breadcrumb.Item>Home</Breadcrumb.Item>
               <Breadcrumb.Item>
@@ -118,9 +91,11 @@ export const BaseLayout: React.FC = () => {
               <Breadcrumb.Item>An Application</Breadcrumb.Item>
             </Breadcrumb>
           </div>
-          <div className="main-content-wrapper">
+          <div className="app-main">
             <div className="main-container">
-              <Routes>{createRoutes(routes)}</Routes>
+              <Suspense fallback={<Spin/>}>
+                <Outlet/>
+              </Suspense>
             </div>
           </div>
         </Content>
@@ -128,3 +103,5 @@ export const BaseLayout: React.FC = () => {
     </Layout>
   )
 }
+
+export default BaseLayout
