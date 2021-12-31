@@ -1,12 +1,13 @@
 import './index.scss'
 
-import {Breadcrumb, Layout, Menu, Spin} from 'antd'
+import {Breadcrumb, Layout, Menu} from 'antd'
 import React, {Suspense, useState} from 'react'
 import * as Icon from '@ant-design/icons'
 import {Link, useLocation, Outlet} from 'react-router-dom'
 import {IRoute, asyncRoutes} from '../../routes/routes'
 import {MenuFoldOutlined, MenuUnfoldOutlined} from '@ant-design/icons'
 import SubMenu from 'antd/lib/menu/SubMenu'
+import Loading from "../../components/Loading";
 
 const {Header, Sider, Content} = Layout
 
@@ -85,7 +86,7 @@ const BaseLayout: React.FC = () => {
           </div>
           <div className="app-main">
             <div className="main-container">
-              <Suspense fallback={<Spin/>}>
+              <Suspense fallback={<Loading/>}>
                 <Outlet/>
               </Suspense>
             </div>
