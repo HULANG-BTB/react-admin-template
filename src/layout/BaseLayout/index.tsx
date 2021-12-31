@@ -18,8 +18,19 @@ const BaseLayout: React.FC = () => {
   }
 
   const createMenu = (routes: IRoute[]) => {
-    const menu = (route: IRoute) => {
+    return routes.filter(route => route.hidden !== true).map((route) => {
       const MenuIcon = route.icon && (Icon[route.icon] as React.FC)
+      if (route.children) {
+        return (
+          <SubMenu
+            key={route.path}
+            title={route.title}
+            icon={MenuIcon ? <MenuIcon/> : null}
+          >
+            {createMenu(route.children)}
+          </SubMenu>
+        )
+      }
       return (
         <Menu.Item
           key={route.path}
@@ -31,25 +42,6 @@ const BaseLayout: React.FC = () => {
           </Link>
         </Menu.Item>
       )
-    }
-
-    const subMenu = (route: IRoute) => {
-      if (route.children) {
-        const MenuIcon = route.icon && (Icon[route.icon] as React.FC)
-        return (
-          <SubMenu
-            key={route.path}
-            title={route.title}
-            icon={MenuIcon ? <MenuIcon/> : null}
-          >
-            {createMenu(route.children)}
-          </SubMenu>
-        )
-      }
-    }
-
-    return routes.filter(route => route.hidden !== true).map((route) => {
-      return route.component ? menu(route) : subMenu(route)
     })
   }
 
