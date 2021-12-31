@@ -12,26 +12,23 @@ const allComponents = {
 const Router: React.FC = () => {
 
   const createRoutes = (routes: IRoute[]) => {
-    const retRoutes: JSX.Element[] = []
-    routes.forEach((route) => {
+    return routes.map(route => {
       const Component = route.component && allComponents[route.component]
       if (route.children) {
-        retRoutes.push(
+        return (
           <Route key={route.path} path={route.path} element={Component ? <Component/> : <Outlet/>}>
             {createRoutes(route.children)}
           </Route>
         )
-      } else {
-        retRoutes.push(
-          <Route
-            key={route.path}
-            path={route.path}
-            element={Component ? <Component/> : null}
-          />
-        )
       }
+      return (
+        <Route
+          key={route.path}
+          path={route.path}
+          element={Component ? <Component/> : null}
+        />
+      )
     })
-    return retRoutes
   }
 
   return (
