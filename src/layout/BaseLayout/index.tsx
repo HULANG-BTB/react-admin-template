@@ -7,8 +7,7 @@ import {
   Link,
   useLocation,
   Outlet,
-  useMatch,
-  PathMatch
+  useMatch
 } from 'react-router-dom'
 import { IRoute, asyncRoutes } from '../../routes/routes'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
@@ -34,12 +33,12 @@ const BaseLayout: React.FC = () => {
     return routes
       .filter((route) => route.hidden !== true)
       .map((route) => {
-        const mached = useMatch({
+        const matched = useMatch({
           path: route.path,
           end: false
         })
 
-        if (mached) {
+        if (matched) {
           routeMatches.push({
             title: route.title,
             path: route.path
