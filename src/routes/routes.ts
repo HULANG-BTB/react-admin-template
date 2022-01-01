@@ -1,5 +1,5 @@
-import {RouteComponent} from '../pages'
-import {LayoutComponent} from "../layout";
+import { RouteComponent } from '../pages'
+import { LayoutComponent } from '../layout'
 
 import * as Icon from '@ant-design/icons'
 
@@ -11,7 +11,8 @@ export interface IRoute {
   icon?: IconType // 图标
   component?: RouteComponent | LayoutComponent // 组件
   query?: string // 查询参数
-  hidden?: boolean// 是否隐藏
+  hidden?: boolean // 是否隐藏
+  redirect?: string // 重定向地址
   needLogin?: boolean // 需要登录
   children?: IRoute[]
 }
@@ -22,6 +23,18 @@ export const staticRoutes: IRoute[] = [
     title: '登录',
     hidden: true,
     component: 'Login'
+  },
+  {
+    path: '/404',
+    title: 'Page Not Found',
+    hidden: true,
+    component: 'Error404'
+  },
+  {
+    path: '/redirect/*',
+    title: 'Redirect',
+    // hidden: true,
+    component: 'Redirect'
   }
 ]
 
@@ -79,7 +92,7 @@ export const errorRoutes: IRoute[] = [
     path: '*',
     title: 'page not found',
     hidden: true,
-    component: 'Error404'
+    redirect: '/404'
   }
 ]
 
@@ -93,4 +106,3 @@ export const routes: IRoute[] = [
   },
   ...errorRoutes
 ]
-
