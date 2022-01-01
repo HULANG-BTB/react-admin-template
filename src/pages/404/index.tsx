@@ -1,10 +1,11 @@
-import React from 'react';
-
+import React from 'react'
+import Error404Img from '../../assets/images/404.png'
+import './index.scss'
 
 const Error404 = () => {
   return (
-    <div>
-      404 pages
+    <div className="error-404">
+      <img src={Error404Img} />
     </div>
   )
 }
