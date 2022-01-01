@@ -1,15 +1,23 @@
 import './index.scss'
 
-import {Breadcrumb, Layout, Menu} from 'antd'
-import React, {Suspense, useState} from 'react'
+import { Breadcrumb, Layout, Menu } from 'antd'
+import React, { Suspense, useState } from 'react'
 import * as Icon from '@ant-design/icons'
-import {Link, useLocation, Outlet} from 'react-router-dom'
-import {IRoute, asyncRoutes} from '../../routes/routes'
-import {MenuFoldOutlined, MenuUnfoldOutlined} from '@ant-design/icons'
+import {
+  Link,
+  useLocation,
+  Outlet,
+  useMatch,
+  PathMatch
+} from 'react-router-dom'
+import { IRoute, asyncRoutes } from '../../routes/routes'
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import SubMenu from 'antd/lib/menu/SubMenu'
-import Loading from "../../components/Loading";
+import Loading from '../../components/Loading'
 
-const {Header, Sider, Content} = Layout
+const { Header, Sider, Content } = Layout
+
+type MatchRoute = Pick<IRoute, 'title' | 'path'>
 
 const BaseLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false)
@@ -18,35 +26,51 @@ const BaseLayout: React.FC = () => {
     setCollapsed(!collapsed)
   }
 
+  const { pathname } = useLocation()
+
+  const routeMatches: MatchRoute[] = []
+
   const createMenu = (routes: IRoute[]) => {
-    return routes.filter(route => route.hidden !== true).map((route) => {
-      const MenuIcon = route.icon && (Icon[route.icon] as React.FC)
-      if (route.children) {
+    return routes
+      .filter((route) => route.hidden !== true)
+      .map((route) => {
+        const mached = useMatch({
+          path: route.path,
+          end: false
+        })
+
+        if (mached) {
+          routeMatches.push({
+            title: route.title,
+            path: route.path
+          })
+        }
+
+        const MenuIcon = route.icon && (Icon[route.icon] as React.FC)
+        if (route.children) {
+          return (
+            <SubMenu
+              key={route.path}
+              title={route.title}
+              icon={MenuIcon ? <MenuIcon /> : null}
+            >
+              {createMenu(route.children)}
+            </SubMenu>
+          )
+        }
         return (
-          <SubMenu
+          <Menu.Item
             key={route.path}
             title={route.title}
-            icon={MenuIcon ? <MenuIcon/> : null}
+            icon={MenuIcon ? <MenuIcon /> : null}
           >
-            {createMenu(route.children)}
-          </SubMenu>
+            <Link to={route.path}>{route.title}</Link>
+          </Menu.Item>
         )
-      }
-      return (
-        <Menu.Item
-          key={route.path}
-          title={route.title}
-          icon={MenuIcon ? <MenuIcon/> : null}
-        >
-          <Link to={route.path}>
-            {route.title}
-          </Link>
-        </Menu.Item>
-      )
-    })
+      })
   }
 
-  const {pathname} = useLocation()
+  const menus = createMenu(asyncRoutes)
 
   return (
     <Layout className="app-container">
@@ -56,13 +80,18 @@ const BaseLayout: React.FC = () => {
         collapsible
         collapsed={collapsed}
       >
-        <div className="logo"/>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={[pathname]}>
-          {createMenu(asyncRoutes)}
+        <div className="logo" />
+        <Menu
+          theme="dark"
+          mode="inline"
+          defaultSelectedKeys={[pathname]}
+          defaultOpenKeys={routeMatches.map((match) => match.path)}
+        >
+          {menus}
         </Menu>
       </Sider>
       <Layout className="content-container">
-        <Header className="app-header" style={{padding: 0}}>
+        <Header className="app-header" style={{ padding: 0 }}>
           {React.createElement(
             collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
             {
@@ -74,20 +103,17 @@ const BaseLayout: React.FC = () => {
         <Content className="app-content">
           <div className="app-breadcrumb">
             <Breadcrumb>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <a href="">Application Center</a>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <a href="">Application List</a>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>An Application</Breadcrumb.Item>
+              {routeMatches.map((match) => (
+                <Breadcrumb.Item key={match.path}>
+                  {match.title}
+                </Breadcrumb.Item>
+              ))}
             </Breadcrumb>
           </div>
           <div className="app-main">
             <div className="main-container">
-              <Suspense fallback={<Loading/>}>
-                <Outlet/>
+              <Suspense fallback={<Loading />}>
+                <Outlet />
               </Suspense>
             </div>
           </div>
