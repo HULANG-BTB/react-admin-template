@@ -1,7 +1,7 @@
-import {lazy} from 'react'
+import { lazy } from 'react'
 
 export const layout = {
-  BaseLayout: lazy(() => import('./BaseLayout')),
+  BaseLayout: lazy(() => import('./BaseLayout'))
 }
 
 export type LayoutComponent = keyof typeof layout

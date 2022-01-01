@@ -3,12 +3,7 @@ import './index.scss'
 import { Breadcrumb, Layout, Menu } from 'antd'
 import React, { Suspense, useState } from 'react'
 import * as Icon from '@ant-design/icons'
-import {
-  Link,
-  useLocation,
-  Outlet,
-  useMatch
-} from 'react-router-dom'
+import { Link, useLocation, Outlet, useMatch } from 'react-router-dom'
 import { IRoute, asyncRoutes } from '../../routes/routes'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import SubMenu from 'antd/lib/menu/SubMenu'

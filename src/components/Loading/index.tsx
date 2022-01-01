@@ -1,5 +1,5 @@
-import React from 'react';
-import {SpinProps, Spin} from "antd";
+import React from 'react'
+import { SpinProps, Spin } from 'antd'
 import './index.scss'
 
 export interface Props extends SpinProps {
@@ -7,10 +7,10 @@ export interface Props extends SpinProps {
 }
 
 const Loading = (props: Props) => {
-  const {type, ...restProps} = props
+  const { type, ...restProps } = props
   return (
     <div className={`loading loading-${type || 'container'}`}>
-      <Spin {...restProps}/>
+      <Spin {...restProps} />
     </div>
   )
 }
