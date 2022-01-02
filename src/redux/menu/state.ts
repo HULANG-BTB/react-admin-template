@@ -1,3 +1,7 @@
 export interface MenuState {}
 
-export const state: MenuState = {}
+interface Permission {}
+
+export const state: MenuState = {
+  menus: []
+}

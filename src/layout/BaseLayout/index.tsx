@@ -31,7 +31,6 @@ const BaseLayout: React.FC = () => {
         <Layout.Header className="header-container" style={{ padding: 0 }}>
           <Header collapsed={collapsed} toggleSideMenu={toggleSideMenu} />
         </Layout.Header>
-        <BreadCrumb />
         <Layout.Content className="content-container">
           <Content />
         </Layout.Content>
