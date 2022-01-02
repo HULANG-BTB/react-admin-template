@@ -35,6 +35,11 @@ const Router: React.FC = () => {
             path={route.path}
             element={Component ? <Component /> : <Outlet />}
           >
+            <Route
+              key={route.path}
+              path={route.path}
+              element={<Navigate to={route.children[0].path} />}
+            ></Route>
             {createRoutes(route.children)}
           </Route>
         )
