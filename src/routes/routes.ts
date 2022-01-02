@@ -80,7 +80,14 @@ export const asyncRoutes: IRoute[] = [
             path: '/nest-1/nest-1-2/nest-1-2-2',
             title: 'nest 1-2-2',
             component: 'Test'
-          }
+          },
+          ...Array.from({ length: 20 }).map(
+            (item, index): IRoute => ({
+              path: `/nest-1/nest-1-2/nest-1-2-${3 + index}`,
+              title: `nest 1-2-${3 + index}`,
+              component: 'Test'
+            })
+          )
         ]
       }
     ]

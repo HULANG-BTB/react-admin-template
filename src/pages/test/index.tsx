@@ -1,5 +1,8 @@
+import { useLocation } from 'react-router-dom'
+
 const Test: React.FC = () => {
-  return <div>test</div>
+  const { pathname } = useLocation()
+  return <div>{pathname}</div>
 }
 
 export default Test
