@@ -27,13 +27,8 @@ const Header: React.FC<HeaderProps> = (props) => {
   return (
     <div className="header">
       <div className="header-left">
-        <div className="menu-trigger">
-          {React.createElement(
-            props.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-            {
-              onClick: props.toggleSideMenu
-            }
-          )}
+        <div className="menu-trigger" onClick={props.toggleSideMenu}>
+          {props.collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         </div>
         <BreadCrumb />
       </div>

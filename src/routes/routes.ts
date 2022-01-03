@@ -22,19 +22,29 @@ export const staticRoutes: IRoute[] = [
     path: '/login',
     title: '登录',
     hidden: true,
-    component: 'Login'
+    component: 'Login',
+    needLogin: false
   },
   {
     path: '/404',
     title: 'Page Not Found',
     hidden: true,
-    component: 'Error404'
+    component: 'Error404',
+    needLogin: false
   },
   {
     path: '/redirect/*',
     title: 'Redirect',
-    // hidden: true,
-    component: 'Redirect'
+    hidden: true,
+    component: 'Redirect',
+    needLogin: false
+  },
+  {
+    path: '*',
+    title: 'page not found',
+    hidden: true,
+    redirect: '/404',
+    needLogin: false
   }
 ]
 
@@ -94,15 +104,6 @@ export const asyncRoutes: IRoute[] = [
   }
 ]
 
-export const errorRoutes: IRoute[] = [
-  {
-    path: '*',
-    title: 'page not found',
-    hidden: true,
-    redirect: '/404'
-  }
-]
-
 export const routes: IRoute[] = [
   ...staticRoutes,
   {
@@ -110,6 +111,5 @@ export const routes: IRoute[] = [
     title: '',
     component: 'BaseLayout',
     children: asyncRoutes
-  },
-  ...errorRoutes
+  }
 ]
