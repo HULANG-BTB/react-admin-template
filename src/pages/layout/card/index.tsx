@@ -46,8 +46,8 @@ const CardLayoutExample: React.FC = () => {
 
   return (
     <CardLayout
-      title={'标题'}
-      toolbar={
+      headerBar={'标题'}
+      toolBar={
         <Auth as={Button} type="primary">
           新增
         </Auth>
@@ -84,15 +84,16 @@ const CardLayoutExample: React.FC = () => {
         </Form>
       }
       resize={resize}
-    >
-      <Table
-        size="small"
-        bordered
-        columns={columns}
-        dataSource={data}
-        scroll={{ y: scroll }}
-      />
-    </CardLayout>
+      table={
+        <Table
+          size="small"
+          bordered
+          columns={columns}
+          dataSource={data}
+          scroll={{ y: scroll }}
+        />
+      }
+    ></CardLayout>
   )
 }
 

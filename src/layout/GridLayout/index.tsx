@@ -7,19 +7,11 @@ export interface GridLayoutProps {
   searchBar?: React.ReactNode
   searchBarRight?: React.ReactNode
   table?: React.ReactNode
-  pagination?: React.ReactNode
 }
 
 const GridLayout: React.FC<GridLayoutProps> = (props) => {
-  const {
-    searchBar,
-    searchBarRight,
-    toolBar,
-    toolBarRight,
-    table,
-    pagination,
-    children
-  } = props
+  const { searchBar, searchBarRight, toolBar, toolBarRight, table, children } =
+    props
   return (
     <div className="grid-layout">
       {searchBar || searchBarRight ? (

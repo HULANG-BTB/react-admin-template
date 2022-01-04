@@ -1,23 +1,38 @@
 import React, { useEffect } from 'react'
 import debounce from 'lodash/debounce'
-import './index.scss'
+import '../index.scss'
 
 export interface CardLayoutProps {
-  title?: React.ReactNode
-  toolbar?: React.ReactNode
+  headerBar?: React.ReactNode
+  headerBarRight?: React.ReactNode
+  toolBar?: React.ReactNode
+  toolBarRight?: React.ReactNode
   searchBar?: React.ReactNode
+  searchBarRight?: React.ReactNode
+  table?: React.ReactNode
   resize?: (height: number) => void
 }
 
 const CardLayout: React.FC<CardLayoutProps> = (props) => {
-  const { title, toolbar, searchBar, children, resize } = props
+  const {
+    headerBar,
+    headerBarRight,
+    toolBar,
+    toolBarRight,
+    searchBar,
+    searchBarRight,
+    table,
+    children,
+    resize
+  } = props
 
   let root: HTMLDivElement | null = null
 
   const handleRootElementResize = debounce(() => {
     let height = root?.querySelector('.card-layout-content')?.clientHeight ?? 0
     height -= root?.querySelector('.search-bar')?.clientHeight ?? 0
-    resize?.(height)
+    // resize?.(height)
+    // console.log(123);
   }, 100)
 
   useEffect(() => {
@@ -35,21 +50,34 @@ const CardLayout: React.FC<CardLayoutProps> = (props) => {
 
   return (
     <div ref={(ref) => (root = ref)} className="card-layout">
-      {toolbar || title ? (
-        <div className="card-layout-header">
-          {title ? <div className="card-layout-title">{title}</div> : null}
-          {toolbar ? (
-            <div className="card-layout-toolbar">{toolbar}</div>
+      {headerBar || headerBarRight ? (
+        <div className={`header-bar ${headerBarRight ? 'flex-between' : ''}`}>
+          <div className="header-bar-left">{headerBar}</div>
+          {headerBarRight ? (
+            <div className="header-bar-right">{headerBarRight}</div>
           ) : null}
         </div>
       ) : null}
-      <div className="card-layout-content-container">
-        <div className="card-layout-content-wrapper">
-          <div className="card-layout-content">
-            {searchBar ? <div className="search-bar">{searchBar}</div> : null}
-            <div className="table">{children}</div>
+
+      <div className="content-area">
+        {searchBar || searchBarRight ? (
+          <div className={`search-bar ${searchBarRight ? 'flex-between' : ''}`}>
+            <div className="search-bar-left">{searchBar}</div>
+            {searchBarRight ? (
+              <div className="search-bar-right">{searchBarRight}</div>
+            ) : null}
           </div>
-        </div>
+        ) : null}
+        {toolBar || toolBarRight ? (
+          <div className={`tool-bar ${toolBarRight ? 'flex-between' : ''}`}>
+            <div className="tool-bar-left">{toolBar}</div>
+            {toolBarRight ? (
+              <div className="tool-bar-right">{toolBarRight}</div>
+            ) : null}
+          </div>
+        ) : null}
+        {table ? <div className="grid-container">{table}</div> : null}
+        {children}
       </div>
     </div>
   )
