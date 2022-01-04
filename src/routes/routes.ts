@@ -89,6 +89,11 @@ export const asyncRoutes: IRoute[] = [
         path: '/layout/tree-search',
         title: '左边树无分页有搜索列表',
         component: 'TreeSearchGridExample'
+      },
+      {
+        path: '/layout/tree-search-page',
+        title: '左边树有分页有搜索列表',
+        component: 'TreeSearchPageGridExample'
       }
     ]
   },
