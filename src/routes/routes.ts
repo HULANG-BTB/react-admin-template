@@ -56,6 +56,18 @@ export const asyncRoutes: IRoute[] = [
     component: 'Home'
   },
   {
+    path: '/layout',
+    title: '布局',
+    icon: 'LayoutOutlined',
+    children: [
+      {
+        path: '/layout/card-layout',
+        title: '带标题栏列表',
+        component: 'CardLayoutExample'
+      }
+    ]
+  },
+  {
     path: '/test',
     title: '测试',
     icon: 'AccountBookFilled',

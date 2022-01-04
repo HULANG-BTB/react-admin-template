@@ -1,3 +1,5 @@
+@import './antd.scss';
+
 body {
   margin: 0;
   padding: 0;
@@ -8,25 +10,26 @@ body {
   box-sizing: border-box;
 
   &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     cursor: pointer;
-    border-radius: 8px;
     opacity: 0;
-    transition: all 0.3s ease-in;
   }
 
   &::-webkit-scrollbar-thumb {
     border-radius: 8px;
     opacity: 0;
   }
+
   &:hover {
     &::-webkit-scrollbar {
+      transition: opacity 0.3s ease-in 3s;
       opacity: 1;
     }
     &::-webkit-scrollbar-thumb {
+      transition: opacity 0.3s ease-in 3s;
       opacity: 1;
-      background-color: rgba($color: #fff, $alpha: 0.5);
+      background-color: #dfdfdf;
     }
   }
 }

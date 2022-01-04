@@ -6,14 +6,7 @@ import CardLayout from '../../layout/CardLayout'
 const Test: React.FC = () => {
   const { pathname } = useLocation()
   return (
-    <CardLayout
-      title={'title'}
-      toolbar={
-        <Auth as={Button} size="small">
-          新增
-        </Auth>
-      }
-    >
+    <CardLayout title={'title'} toolbar={<Auth as={Button}>新增</Auth>}>
       {pathname}
     </CardLayout>
   )

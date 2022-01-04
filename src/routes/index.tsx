@@ -6,12 +6,9 @@ import {
   Routes
 } from 'react-router-dom'
 import React from 'react'
-import { IRoute, staticRoutes } from './routes'
+import { IRoute, routes } from './routes'
 import { layout } from '../layout'
 import { components } from '../pages'
-import { useSelector } from 'react-redux'
-import { RootState } from '../redux'
-import { MenuState, Permission } from '../redux/menu/state'
 import { uuid } from '../utils/string'
 
 const allComponents = {
@@ -20,8 +17,6 @@ const allComponents = {
 }
 
 const Router: React.FC = () => {
-  const menuState = useSelector<RootState, MenuState>((state) => state.menu)
-
   const createRoutes = (routes: IRoute[]) => {
     return routes.map((route) => {
       if (route.redirect) {
@@ -59,29 +54,6 @@ const Router: React.FC = () => {
       )
     })
   }
-
-  const generateAsyncRoutes = (data: Permission[]) => {
-    return data
-      .filter((item) => item.function)
-      .map((item): IRoute => {
-        return {
-          path: item.function?.code.replaceAll(':', '-') || '',
-          title: item.name,
-          component: 'Test'
-        }
-      })
-  }
-
-  const asyncTreeRoutes: IRoute[] = [
-    {
-      path: '/',
-      title: '',
-      component: 'BaseLayout',
-      children: generateAsyncRoutes(menuState.menus)
-    }
-  ]
-
-  const routes: IRoute[] = [...asyncTreeRoutes, ...staticRoutes]
 
   return (
     <BrowserRouter>

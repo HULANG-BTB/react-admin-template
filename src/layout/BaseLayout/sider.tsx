@@ -1,24 +1,18 @@
-import { Layout, Menu } from 'antd'
+import { Menu } from 'antd'
 import React from 'react'
 import * as Icon from '@ant-design/icons'
 import { Link, useLocation, useMatch } from 'react-router-dom'
-import { IRoute, staticRoutes } from '../../routes/routes'
+import { asyncRoutes, IRoute } from '../../routes/routes'
 import { RouteMatched } from '.'
-import { MenuState, Permission } from '../../redux/menu/state'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../redux'
-import { uuid } from '../../utils/string'
 
 export interface SiderProps {
   collapsed?: boolean
 }
 
 const Sider: React.FC<SiderProps> = (props) => {
-  const { pathname } = useLocation()
+  let { pathname } = useLocation()
 
   const routeMatches: RouteMatched[] = []
-
-  const menuState = useSelector<RootState, MenuState>((state) => state.menu)
 
   const createMenu = (routes: IRoute[]) => {
     return routes
@@ -40,7 +34,7 @@ const Sider: React.FC<SiderProps> = (props) => {
         if (route.children) {
           return (
             <Menu.SubMenu
-              key={uuid()}
+              key={route.path}
               title={route.title}
               icon={MenuIcon ? <MenuIcon /> : null}
             >
@@ -50,7 +44,7 @@ const Sider: React.FC<SiderProps> = (props) => {
         }
         return (
           <Menu.Item
-            key={uuid()}
+            key={route.path}
             title={route.title}
             icon={MenuIcon ? <MenuIcon /> : null}
           >
@@ -60,28 +54,7 @@ const Sider: React.FC<SiderProps> = (props) => {
       })
   }
 
-  const generateTreeRoutes = (data: Permission[], pid: string | null) => {
-    const ret: IRoute[] = []
-    data.forEach((item) => {
-      if (item.parentId === pid) {
-        const route: IRoute = {
-          path: '',
-          title: item.name
-        }
-        if (item.function) {
-          route.path = item.function.code.replaceAll(':', '-')
-        }
-        const child = generateTreeRoutes(data, item.id)
-        if (child.length) {
-          route.children = child
-        }
-        ret.push(route)
-      }
-    })
-    return ret
-  }
-
-  const menus = createMenu(generateTreeRoutes(menuState.menus, null))
+  const menus = createMenu(asyncRoutes)
 
   return (
     <div className="aside">

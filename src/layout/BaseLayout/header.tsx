@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = (props) => {
             中午好，管理员!
           </div>
           <Dropdown overlay={menu}>
-            <Badge count={1} size="small">
+            <Badge count={1}>
               <Avatar src="https://joeschmoe.io/api/v1/random" />
             </Badge>
           </Dropdown>

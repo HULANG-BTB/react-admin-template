@@ -5,7 +5,8 @@ export const components = {
   Test: lazy(() => import('./test')),
   Login: lazy(() => import('./login')),
   Error404: lazy(() => import('./404')),
-  Redirect: lazy(() => import('./redirect'))
+  Redirect: lazy(() => import('./redirect')),
+  CardLayoutExample: lazy(() => import('./layout/card'))
 }
 
 export type RouteComponent = keyof typeof components
