@@ -2,12 +2,14 @@ import React from 'react'
 import { GridLayoutProps } from '../GridLayout'
 import '../index.scss'
 
-export interface TreeGridLayoutProps extends GridLayoutProps {
+export type TreeLayoutProps = {
   treePanel?: React.ReactNode
   treeTitle?: React.ReactNode
   treeSearch?: React.ReactNode
   treeContent?: React.ReactNode
 }
+
+export type TreeGridLayoutProps = TreeLayoutProps & GridLayoutProps
 
 const TreeGridLayout: React.FC<TreeGridLayoutProps> = (props) => {
   const {
@@ -35,7 +37,7 @@ const TreeGridLayout: React.FC<TreeGridLayoutProps> = (props) => {
           {treePanel}
         </div>
       ) : null}
-      <div className="content-area shadow">
+      <div className="content-area grid-layout shadow">
         {searchBar || searchBarRight ? (
           <div className={`search-bar ${searchBarRight ? 'flex-between' : ''}`}>
             <div className="search-bar-left">{searchBar}</div>

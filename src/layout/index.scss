@@ -142,16 +142,17 @@ $--mp-size: 10px !default;
   > .content-area {
     flex: 1;
     overflow: auto;
+    @extend .flex;
     @extend .flex-column;
-    @extend .grid-layout;
 
     > .grid-layout,
-    > .card-grid-layout {
+    > .card-layout {
       flex: 1;
       overflow: auto;
+      height: 0;
 
       &:not(:first-child) {
-        margin-top: 10px;
+        margin-top: $--mp-size;
       }
     }
   }

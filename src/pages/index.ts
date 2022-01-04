@@ -12,7 +12,8 @@ export const components = {
   SearchPageGridLayoutExample: lazy(() => import('./layout/search-page')),
   TreeSimpleGridExample: lazy(() => import('./layout/tree')),
   TreeSearchGridExample: lazy(() => import('./layout/tree-search')),
-  TreeSearchPageGridExample: lazy(() => import('./layout/tree-search-page'))
+  TreeSearchPageGridExample: lazy(() => import('./layout/tree-search-page')),
+  TreeMultiGridExample: lazy(() => import('./layout/tree-multi-grid'))
 }
 
 export type RouteComponent = keyof typeof components

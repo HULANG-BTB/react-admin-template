@@ -58,7 +58,7 @@ const CardLayoutExample: React.FC = () => {
           columns={columns}
           dataSource={data}
           pagination={false}
-          scroll={{ y: 300 }}
+          scroll={{ y: 50 }}
         />
       }
       pagination={<Pagination defaultCurrent={6} total={500} />}
