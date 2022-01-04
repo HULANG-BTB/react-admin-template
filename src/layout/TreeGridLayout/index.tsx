@@ -20,6 +20,7 @@ const TreeGridLayout: React.FC<TreeGridLayoutProps> = (props) => {
     toolBar,
     toolBarRight,
     table,
+    pagination,
     children
   } = props
   return (
@@ -52,6 +53,7 @@ const TreeGridLayout: React.FC<TreeGridLayoutProps> = (props) => {
           </div>
         ) : null}
         {table ? <div className="grid-container">{table}</div> : null}
+        {pagination ? <div className="pagination-bar">{pagination}</div> : null}
         {children}
       </div>
     </div>

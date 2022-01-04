@@ -1,4 +1,4 @@
-import { Button, Input, Table, Tree } from 'antd'
+import { Button, Input, Pagination, Table, Tree } from 'antd'
 import React from 'react'
 import Auth from '../../../components/Auth'
 import TreeGridLayout from '../../../layout/TreeGridLayout'
@@ -43,8 +43,10 @@ const TreeSearchPage: React.FC = (props) => {
           columns={columns}
           dataSource={data}
           scroll={{ y: 400 }}
+          pagination={false}
         />
       }
+      pagination={<Pagination defaultCurrent={6} total={500} />}
     ></TreeGridLayout>
   )
 }

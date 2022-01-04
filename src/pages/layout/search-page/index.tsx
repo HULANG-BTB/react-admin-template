@@ -1,4 +1,4 @@
-import { Button, Form, Input, Table } from 'antd'
+import { Button, Form, Input, Pagination, Table } from 'antd'
 import React from 'react'
 import Auth from '../../../components/Auth'
 import GridLayout from '../../../layout/GridLayout'
@@ -60,9 +60,11 @@ const SearchPage: React.FC = (props) => {
           bordered
           columns={columns}
           dataSource={data}
+          pagination={false}
           scroll={{ y: 400 }}
         />
       }
+      pagination={<Pagination defaultCurrent={6} total={500} />}
     />
   )
 }

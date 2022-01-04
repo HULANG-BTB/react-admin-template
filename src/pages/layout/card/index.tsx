@@ -1,4 +1,4 @@
-import { Button, Form, Input, Table } from 'antd'
+import { Button, Form, Input, Pagination, Table } from 'antd'
 import React from 'react'
 import Auth from '../../../components/Auth'
 import CardLayout from '../../../layout/CardLayout'
@@ -52,8 +52,16 @@ const CardLayoutExample: React.FC = () => {
         </Form>
       }
       table={
-        <Table size="small" bordered columns={columns} dataSource={data} />
+        <Table
+          size="small"
+          bordered
+          columns={columns}
+          dataSource={data}
+          pagination={false}
+          scroll={{ y: 300 }}
+        />
       }
+      pagination={<Pagination defaultCurrent={6} total={500} />}
     ></CardLayout>
   )
 }
