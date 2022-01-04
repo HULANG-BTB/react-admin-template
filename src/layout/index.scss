@@ -88,6 +88,15 @@ $--mp-size: 10px !default;
   padding: 0 0 10px 0;
 }
 
+// 分页栏
+.pagination-bar {
+  padding: 10px 0 0;
+
+  > div {
+    padding: 0;
+  }
+}
+
 // 树面板
 .tree-area {
   width: 300px;
