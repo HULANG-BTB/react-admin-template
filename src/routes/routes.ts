@@ -69,6 +69,11 @@ export const asyncRoutes: IRoute[] = [
         path: '/layout/simple-grid',
         title: '无分页无搜索列表',
         component: 'SimpleGridLayoutExample'
+      },
+      {
+        path: '/layout/search-grid',
+        title: '无分页有搜索列表',
+        component: 'SearchGridLayoutExample'
       }
     ]
   },
