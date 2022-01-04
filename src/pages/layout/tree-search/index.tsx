@@ -4,7 +4,7 @@ import Auth from '../../../components/Auth'
 import TreeGridLayout from '../../../layout/TreeGridLayout'
 import { columns, data, treeData } from '../data'
 
-const TreeSimple: React.FC = (props) => {
+const TreeSearch: React.FC = (props) => {
   const onSelect = (selectedKeys: React.Key[], info: any) => {
     console.log('selected', selectedKeys, info)
   }
@@ -50,4 +50,4 @@ const TreeSimple: React.FC = (props) => {
   )
 }
 
-export default TreeSimple
+export default TreeSearch
