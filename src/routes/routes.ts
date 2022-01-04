@@ -64,6 +64,11 @@ export const asyncRoutes: IRoute[] = [
         path: '/layout/card-layout',
         title: '带标题栏列表',
         component: 'CardLayoutExample'
+      },
+      {
+        path: '/layout/simple-grid',
+        title: '无分页无搜索列表',
+        component: 'SimpleGridLayoutExample'
       }
     ]
   },

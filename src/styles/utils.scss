@@ -1,0 +1,116 @@
+// 工具类样式
+
+// 内容居中
+.text-center {
+  text-align: center;
+}
+
+// 单行省略
+.text-ellipse {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// 两行省略
+.row-2-ellipse {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+// flex布局
+.flex {
+  display: flex;
+}
+
+// 常用于撑满剩余空间
+.flex-1 {
+  flex: 1;
+}
+
+// 垂直布局
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// 两端对齐
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+// 均匀分布
+.flex-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+// 水平居中
+.h-center {
+  display: flex;
+  justify-content: center;
+}
+
+// 垂直居中
+.v-center {
+  display: flex;
+  align-items: center;
+}
+
+// 垂直、水平居中(横向排列)
+.vh-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// 垂直、水平居中(纵向排列)
+.vh-center-column {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+// 点
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+  display: inline-block;
+}
+
+// 铺满
+.cover {
+  width: 100%;
+  height: 100%;
+}
+
+// 内容溢出，出现滚动条
+.overflow {
+  overflow: auto;
+}
+
+.cover-scroller {
+  @extend .cover;
+  @extend .overflow;
+}
+
+// 竖直分割线
+.v-split-line {
+  width: 1px;
+  height: 14px;
+  margin: 0 5px;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: #dcdfe6;
+}
+
+// 水平分割线
+.h-split-line {
+  height: 1px;
+  background-color: #dcdfe6;
+}
