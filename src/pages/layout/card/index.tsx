@@ -1,47 +1,15 @@
 import { Button, Form, Input, Table } from 'antd'
-import React, { useState } from 'react'
+import React from 'react'
 import Auth from '../../../components/Auth'
 import CardLayout from '../../../layout/CardLayout'
+import { columns, data } from '../data'
 import './index.scss'
 
 const CardLayoutExample: React.FC = () => {
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name'
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age'
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address'
-    }
-  ]
-
-  const data = []
-  for (let i = 0; i < 100; i++) {
-    data.push({
-      key: i,
-      name: `Edward King ${i}`,
-      age: 32,
-      address: `London, Park Lane no. ${i}`
-    })
-  }
-
   const [form] = Form.useForm()
 
   const onFinish = (values: any) => {
     console.log('Finish:', values)
-  }
-
-  const [scroll, setScroll] = useState(0)
-
-  const resize = (height: number) => {
-    console.log(height)
-
-    setScroll(height - 96)
   }
 
   return (
@@ -83,15 +51,8 @@ const CardLayoutExample: React.FC = () => {
           </Form.Item>
         </Form>
       }
-      resize={resize}
       table={
-        <Table
-          size="small"
-          bordered
-          columns={columns}
-          dataSource={data}
-          scroll={{ y: scroll }}
-        />
+        <Table size="small" bordered columns={columns} dataSource={data} />
       }
     ></CardLayout>
   )

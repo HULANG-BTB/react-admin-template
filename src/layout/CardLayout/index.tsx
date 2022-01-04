@@ -1,16 +1,11 @@
 import React, { useEffect } from 'react'
 import debounce from 'lodash/debounce'
 import '../index.scss'
+import { GridLayoutProps } from '../GridLayout'
 
-export interface CardLayoutProps {
+export interface CardLayoutProps extends GridLayoutProps {
   headerBar?: React.ReactNode
   headerBarRight?: React.ReactNode
-  toolBar?: React.ReactNode
-  toolBarRight?: React.ReactNode
-  searchBar?: React.ReactNode
-  searchBarRight?: React.ReactNode
-  table?: React.ReactNode
-  resize?: (height: number) => void
 }
 
 const CardLayout: React.FC<CardLayoutProps> = (props) => {
@@ -49,7 +44,7 @@ const CardLayout: React.FC<CardLayoutProps> = (props) => {
   }, [])
 
   return (
-    <div ref={(ref) => (root = ref)} className="card-layout">
+    <div ref={(ref) => (root = ref)} className="card-layout shadow">
       {headerBar || headerBarRight ? (
         <div className={`header-bar ${headerBarRight ? 'flex-between' : ''}`}>
           <div className="header-bar-left">{headerBar}</div>

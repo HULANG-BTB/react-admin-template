@@ -1,3 +1,5 @@
+$--mp-size: 10px !default;
+
 .flex {
   display: flex;
 }
@@ -15,13 +17,24 @@
 }
 
 .padding {
-  padding: 10px;
+  padding: $--mp-size;
+}
+
+.margin {
+  margin: $--mp-size;
+}
+
+// 内容尺寸
+.size {
+  width: calc(100% - #{$--mp-size} * 2);
+  height: calc(100% - #{$--mp-size} * 2);
 }
 
 .card-layout {
+  flex: 1;
   @extend .background-color;
   @extend .flex-column;
-  @extend .shadow;
+  @extend .flex;
 
   .header-bar {
     @extend .flex;
@@ -45,7 +58,6 @@
   @extend .flex;
   @extend .flex-column;
   @extend .background-color;
-  @extend .shadow;
   @extend .padding;
 }
 
@@ -74,4 +86,53 @@
 // 工具栏
 .tool-bar {
   padding: 0 0 10px 0;
+}
+
+// 树面板
+.tree-area {
+  width: 300px;
+  @extend .background-color;
+  @extend .padding;
+  @extend .flex-column;
+
+  > .tree-search {
+    height: 32px;
+    margin: 0 0 10px 0;
+  }
+
+  > .tree-content {
+    flex: 1;
+    overflow: auto;
+  }
+  & + .content-area {
+    margin-left: $--mp-size;
+  }
+}
+
+.tree-grid-layout {
+  @extend .size;
+  @extend .margin;
+  @extend .tree-module-wrapper;
+}
+
+// 供左边树+右边列表模块使用
+.tree-module-wrapper {
+  display: flex;
+
+  > .content-area {
+    flex: 1;
+    overflow: auto;
+    @extend .flex-column;
+    @extend .grid-layout;
+
+    > .grid-layout,
+    > .card-grid-layout {
+      flex: 1;
+      overflow: auto;
+
+      &:not(:first-child) {
+        margin-top: 10px;
+      }
+    }
+  }
 }

@@ -7,13 +7,14 @@ export interface GridLayoutProps {
   searchBar?: React.ReactNode
   searchBarRight?: React.ReactNode
   table?: React.ReactNode
+  resize?: (height: number) => void
 }
 
 const GridLayout: React.FC<GridLayoutProps> = (props) => {
   const { searchBar, searchBarRight, toolBar, toolBarRight, table, children } =
     props
   return (
-    <div className="grid-layout">
+    <div className="grid-layout shadow">
       {searchBar || searchBarRight ? (
         <div className={`search-bar ${searchBarRight ? 'flex-between' : ''}`}>
           <div className="search-bar-left">{searchBar}</div>

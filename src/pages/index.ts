@@ -9,7 +9,8 @@ export const components = {
   CardLayoutExample: lazy(() => import('./layout/card')),
   SimpleGridLayoutExample: lazy(() => import('./layout/simple')),
   SearchGridLayoutExample: lazy(() => import('./layout/search')),
-  SearchPageGridLayoutExample: lazy(() => import('./layout/search-page'))
+  SearchPageGridLayoutExample: lazy(() => import('./layout/search-page')),
+  TreeSimpleGridExample: lazy(() => import('./layout/tree'))
 }
 
 export type RouteComponent = keyof typeof components
