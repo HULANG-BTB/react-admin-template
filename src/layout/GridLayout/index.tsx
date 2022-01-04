@@ -39,7 +39,6 @@ const GridLayout: React.FC<GridLayoutProps> = (props) => {
         </div>
       ) : null}
       {table ? <div className="grid-container">{table}</div> : null}
-      {pagination ? <div className="pagination-bar">{pagination}</div> : null}
       {children}
     </div>
   )
