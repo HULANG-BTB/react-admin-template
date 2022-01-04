@@ -50,6 +50,8 @@ $--mp-size: 10px !default;
     flex: 1;
     overflow: auto;
     padding: 10px;
+    @extend .flex;
+    @extend .flex-column;
 
     > .grid-container {
       flex: 1;

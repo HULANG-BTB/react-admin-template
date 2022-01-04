@@ -1,10 +1,12 @@
 import { Button, Input, Pagination, Table, Tree } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import Auth from '../../../components/Auth'
 import TreeGridLayout from '../../../layout/TreeGridLayout'
 import { columns, data, treeData } from '../data'
 
 const TreeSearchPage: React.FC = (props) => {
+  const [tableHeight, setTableHeight] = useState(0)
+
   const onSelect = (selectedKeys: React.Key[], info: any) => {
     console.log('selected', selectedKeys, info)
   }
@@ -42,11 +44,12 @@ const TreeSearchPage: React.FC = (props) => {
           bordered
           columns={columns}
           dataSource={data}
-          scroll={{ y: 400 }}
+          scroll={{ y: tableHeight }}
           pagination={false}
         />
       }
       pagination={<Pagination defaultCurrent={6} total={500} />}
+      resize={setTableHeight}
     ></TreeGridLayout>
   )
 }

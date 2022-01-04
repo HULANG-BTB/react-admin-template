@@ -2,6 +2,10 @@ import React, { useEffect } from 'react'
 import debounce from 'lodash/debounce'
 import '../index.scss'
 import { GridLayoutProps } from '../GridLayout'
+import {
+  addResizeListener,
+  removeResizeListener
+} from '../../utils/resize-event'
 
 export interface CardLayoutProps extends GridLayoutProps {
   headerBar?: React.ReactNode
@@ -23,20 +27,23 @@ const CardLayout: React.FC<CardLayoutProps> = (props) => {
   } = props
 
   let root: HTMLDivElement | null = null
+  let tableHeight = 0
 
   const handleRootElementResize = debounce(() => {
-    let height = root?.querySelector('.card-layout-content')?.clientHeight ?? 0
-    height -= root?.querySelector('.search-bar')?.clientHeight ?? 0
-    // resize?.(height)
-    // console.log(123);
-  }, 100)
+    if (root) {
+      const newHeight =
+        (root.querySelector('.grid-container')?.clientHeight ?? 40) - 40
+      if (tableHeight !== newHeight) {
+        tableHeight = newHeight
+        resize?.(tableHeight)
+      }
+    }
+  }, 300)
 
   useEffect(() => {
-    if (root) {
-      window.addEventListener('resize', handleRootElementResize)
-    }
+    root && addResizeListener(root, handleRootElementResize)
     return () => {
-      window.removeEventListener('resize', handleRootElementResize)
+      root && removeResizeListener(root, handleRootElementResize)
     }
   })
 

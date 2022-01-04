@@ -38,6 +38,10 @@
   }
 }
 
+.ant-table-body {
+  border: 1px solid #f0f0f0;
+}
+
 .ant-btn {
   & + .ant-btn {
     margin-left: 15px;

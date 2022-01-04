@@ -1,11 +1,13 @@
 import { Button, Form, Input, Table } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import Auth from '../../../components/Auth'
 import GridLayout from '../../../layout/GridLayout'
 import { columns, data } from '../data'
 
 const Search: React.FC = (props) => {
   const [form] = Form.useForm()
+
+  const [tableHeight, setTableHeight] = useState(0)
 
   const onFinish = (values: any) => {
     console.log('Finish:', values)
@@ -61,9 +63,10 @@ const Search: React.FC = (props) => {
           columns={columns}
           dataSource={data}
           pagination={false}
-          scroll={{ y: 400 }}
+          scroll={{ y: tableHeight }}
         />
       }
+      resize={setTableHeight}
     />
   )
 }

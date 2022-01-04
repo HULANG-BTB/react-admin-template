@@ -1,5 +1,5 @@
 import { Button, Form, Input, Pagination, Table } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import Auth from '../../../components/Auth'
 import CardLayout from '../../../layout/CardLayout'
 import { columns, data } from '../data'
@@ -7,6 +7,8 @@ import './index.scss'
 
 const CardLayoutExample: React.FC = () => {
   const [form] = Form.useForm()
+
+  const [tableHeight, setTableHeight] = useState(0)
 
   const onFinish = (values: any) => {
     console.log('Finish:', values)
@@ -58,10 +60,11 @@ const CardLayoutExample: React.FC = () => {
           columns={columns}
           dataSource={data}
           pagination={false}
-          scroll={{ y: 50 }}
+          scroll={{ y: tableHeight }}
         />
       }
       pagination={<Pagination defaultCurrent={6} total={500} />}
+      resize={setTableHeight}
     ></CardLayout>
   )
 }

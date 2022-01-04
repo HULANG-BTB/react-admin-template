@@ -1,10 +1,12 @@
 import { Button, Input, Table, Tree } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import Auth from '../../../components/Auth'
 import TreeGridLayout from '../../../layout/TreeGridLayout'
 import { columns, data, treeData } from '../data'
 
 const TreeSimple: React.FC = (props) => {
+  const [tableHeight, setTableHeight] = useState(0)
+
   const onSelect = (selectedKeys: React.Key[], info: any) => {
     console.log('selected', selectedKeys, info)
   }
@@ -43,9 +45,10 @@ const TreeSimple: React.FC = (props) => {
           columns={columns}
           dataSource={data}
           pagination={false}
-          scroll={{ y: 400 }}
+          scroll={{ y: tableHeight }}
         />
       }
+      resize={setTableHeight}
     ></TreeGridLayout>
   )
 }

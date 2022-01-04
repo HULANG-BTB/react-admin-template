@@ -1,4 +1,9 @@
-import React from 'react'
+import debounce from 'lodash/debounce'
+import React, { useEffect } from 'react'
+import {
+  addResizeListener,
+  removeResizeListener
+} from '../../utils/resize-event'
 import '../index.scss'
 
 export interface GridLayoutProps {
@@ -19,10 +24,37 @@ const GridLayout: React.FC<GridLayoutProps> = (props) => {
     toolBarRight,
     table,
     pagination,
-    children
+    children,
+    resize
   } = props
+
+  let root: HTMLDivElement | null = null
+  let tableHeight = 0
+
+  const handleRootElementResize = debounce(() => {
+    if (root) {
+      const newHeight =
+        (root.querySelector('.grid-container')?.clientHeight ?? 40) - 40
+      if (tableHeight !== newHeight) {
+        tableHeight = newHeight
+        resize?.(tableHeight)
+      }
+    }
+  }, 300)
+
+  useEffect(() => {
+    root && addResizeListener(root, handleRootElementResize)
+    return () => {
+      root && removeResizeListener(root, handleRootElementResize)
+    }
+  })
+
+  useEffect(() => {
+    handleRootElementResize()
+  }, [])
+
   return (
-    <div className="grid-layout shadow">
+    <div ref={(ref) => (root = ref)} className="grid-layout shadow">
       {searchBar || searchBarRight ? (
         <div className={`search-bar ${searchBarRight ? 'flex-between' : ''}`}>
           <div className="search-bar-left">{searchBar}</div>
