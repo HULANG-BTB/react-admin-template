@@ -1,9 +1,8 @@
-import './index.scss'
+import '../index.scss'
 
 import { Layout } from 'antd'
-import React, { Suspense, useState } from 'react'
+import React, { useState } from 'react'
 import { IRoute } from '../../routes/routes'
-import BreadCrumb from './bread-crumb'
 import Sider from './sider'
 import Header from './header'
 import Content from './content'
