@@ -58,7 +58,7 @@ const Sider: React.FC<SiderProps> = (props) => {
 
   return (
     <div className="aside">
-      <div className="logo" />
+      <div className="logo">Oibit-Admin</div>
       <Menu
         theme="dark"
         mode="inline"
