@@ -51,8 +51,8 @@ export const staticRoutes: IRoute[] = [
 export const asyncRoutes: IRoute[] = [
   {
     path: '/dashboard',
-    title: '首页',
-    icon: 'HomeOutlined',
+    title: '仪表盘',
+    icon: 'DashboardOutlined',
     component: 'Home'
   },
   {
