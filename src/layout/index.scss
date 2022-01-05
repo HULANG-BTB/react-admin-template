@@ -106,143 +106,143 @@ $--mp-size: 10px !default;
         > .grid-layout {
           @extend .size;
         }
-      }
-    }
-  }
-}
 
-.card-layout {
-  flex: 1;
-  @extend .background-color;
-  @extend .flex-column;
-  @extend .flex;
-  @extend .margin;
+        .card-layout {
+          flex: 1;
+          @extend .background-color;
+          @extend .flex-column;
+          @extend .flex;
+          @extend .margin;
 
-  .header-bar {
-    @extend .flex;
-    height: 36px;
-    font-size: 12px;
-    line-height: 36px;
-    padding: 0 10px;
-    background-color: #f9faff;
-    border-bottom: 1px solid #eaedf1;
-  }
+          .header-bar {
+            @extend .flex;
+            height: 36px;
+            font-size: 12px;
+            line-height: 36px;
+            padding: 0 10px;
+            background-color: #f9faff;
+            border-bottom: 1px solid #eaedf1;
+          }
 
-  > .content-area {
-    flex: 1;
-    overflow: auto;
-    padding: 10px;
-    @extend .flex;
-    @extend .flex-column;
+          > .content-area {
+            flex: 1;
+            overflow: auto;
+            padding: 10px;
+            @extend .flex;
+            @extend .flex-column;
 
-    > .grid-container {
-      flex: 1;
-      overflow: auto;
-    }
-  }
-}
+            > .grid-container {
+              flex: 1;
+              overflow: auto;
+            }
+          }
+        }
 
-.grid-layout {
-  flex: 1;
-  @extend .flex;
-  @extend .flex-column;
-  @extend .background-color;
-  @extend .padding;
-  @extend .margin;
+        .grid-layout {
+          flex: 1;
+          @extend .flex;
+          @extend .flex-column;
+          @extend .background-color;
+          @extend .padding;
+          @extend .margin;
 
-  > .grid-container {
-    flex: 1;
-    overflow: auto;
-  }
-}
+          > .grid-container {
+            flex: 1;
+            overflow: auto;
+          }
+        }
 
-// 查询栏
-.search-bar {
-  & + .tool-bar {
-    padding-top: 10px;
-    border-top: 1px solid #eaedf1;
-  }
+        // 查询栏
+        .search-bar {
+          & + .tool-bar {
+            padding-top: 10px;
+            border-top: 1px solid #eaedf1;
+          }
 
-  .el-form {
-    .el-form-item {
-      margin-right: 10px;
+          .el-form {
+            .el-form-item {
+              margin-right: 10px;
 
-      &:nth-last-child(2) {
-        margin-right: 10px;
-      }
+              &:nth-last-child(2) {
+                margin-right: 10px;
+              }
 
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-}
+              &:last-child {
+                margin-right: 0;
+              }
+            }
+          }
+        }
 
-// 工具栏
-.tool-bar {
-  padding: 0 0 10px 0;
-}
+        // 工具栏
+        .tool-bar {
+          padding: 0 0 10px 0;
+        }
 
-// 分页栏
-.pagination-bar {
-  padding: 10px 0 0;
-  text-align: right;
+        // 分页栏
+        .pagination-bar {
+          padding: 10px 0 0;
+          text-align: right;
 
-  > div {
-    padding: 0;
-  }
-}
+          > div {
+            padding: 0;
+          }
+        }
 
-// 树面板
-.tree-area {
-  width: 300px;
-  @extend .background-color;
-  @extend .padding;
-  @extend .flex-column;
+        // 树面板
+        .tree-area {
+          width: 300px;
+          @extend .background-color;
+          @extend .padding;
+          @extend .flex-column;
 
-  > .tree-search {
-    height: 32px;
-    margin: 0 0 10px 0;
-  }
+          > .tree-search {
+            height: 32px;
+            margin: 0 0 10px 0;
+          }
 
-  > .tree-content {
-    flex: 1;
-    overflow: auto;
-  }
-  & + .content-area {
-    &.grid-layout,
-    &.card-layout {
-      margin: 0 0 0 $--mp-size;
-    }
-    margin-left: $--mp-size;
-  }
-}
+          > .tree-content {
+            flex: 1;
+            overflow: auto;
+          }
+          & + .content-area {
+            &.grid-layout,
+            &.card-layout {
+              margin: 0 0 0 $--mp-size;
+            }
+            margin-left: $--mp-size;
+          }
+        }
 
-.tree-grid-layout {
-  @extend .size;
-  @extend .margin;
-  @extend .tree-module-wrapper;
-}
+        .tree-grid-layout {
+          @extend .size;
+          @extend .margin;
+          @extend .tree-module-wrapper;
+        }
 
-// 供左边树+右边列表模块使用
-.tree-module-wrapper {
-  display: flex;
+        // 供左边树+右边列表模块使用
+        .tree-module-wrapper {
+          display: flex;
 
-  > .content-area {
-    flex: 1;
-    overflow: auto;
-    @extend .flex;
-    @extend .flex-column;
+          > .content-area {
+            flex: 1;
+            overflow: auto;
+            @extend .flex;
+            @extend .flex-column;
 
-    > .grid-layout,
-    > .card-layout {
-      flex: 1;
-      overflow: auto;
-      height: 0;
-      margin: 0;
+            > .grid-layout,
+            > .card-layout {
+              flex: 1;
+              overflow: auto;
+              height: 0;
+              margin: 0;
 
-      &:not(:first-child) {
-        margin-top: $--mp-size;
+              &:not(:first-child) {
+                margin-top: $--mp-size;
+              }
+            }
+          }
+        }
       }
     }
   }
