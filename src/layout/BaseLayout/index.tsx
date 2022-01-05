@@ -1,4 +1,4 @@
-import '../index.scss'
+import './index.scss'
 
 import { Layout } from 'antd'
 import React, { useState } from 'react'

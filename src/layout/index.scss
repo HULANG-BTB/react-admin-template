@@ -30,220 +30,146 @@ $--mp-size: 10px !default;
   height: calc(100% - #{$--mp-size} * 2);
 }
 
-.app-container {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+.card-layout {
+  flex: 1;
+  @extend .background-color;
+  @extend .flex-column;
+  @extend .flex;
+  @extend .margin;
 
-  .aside-container {
-    user-select: none;
-    .aside {
-      height: 100vh;
-      overflow-y: auto;
-      .logo {
-        height: 32px;
-        margin: 16px;
-        background: rgba(255, 255, 255, 0.3);
+  .header-bar {
+    @extend .flex;
+    height: 36px;
+    font-size: 12px;
+    line-height: 36px;
+    padding: 0 10px;
+    background-color: #f9faff;
+    border-bottom: 1px solid #eaedf1;
+  }
+
+  > .content-area {
+    flex: 1;
+    overflow: auto;
+    padding: 10px;
+    @extend .flex;
+    @extend .flex-column;
+
+    > .grid-container {
+      flex: 1;
+      overflow: auto;
+    }
+  }
+}
+
+.grid-layout {
+  flex: 1;
+  @extend .flex;
+  @extend .flex-column;
+  @extend .background-color;
+  @extend .padding;
+  @extend .margin;
+
+  > .grid-container {
+    flex: 1;
+    overflow: auto;
+  }
+}
+
+// 查询栏
+.search-bar {
+  & + .tool-bar {
+    padding-top: 10px;
+    border-top: 1px solid #eaedf1;
+  }
+
+  .el-form {
+    .el-form-item {
+      margin-right: 10px;
+
+      &:nth-last-child(2) {
+        margin-right: 10px;
+      }
+
+      &:last-child {
+        margin-right: 0;
       }
     }
   }
+}
 
-  .main-container {
-    .header-container {
-      .header {
-        background-color: #fff;
-        display: flex;
-        justify-content: space-between;
+// 工具栏
+.tool-bar {
+  padding: 0 0 10px 0;
+}
 
-        .header-left,
-        .header-right {
-          display: flex;
-          align-items: center;
-        }
+// 分页栏
+.pagination-bar {
+  padding: 10px 0 0;
+  text-align: right;
 
-        .header-left {
-          .app-breadcrumb {
-            user-select: none;
-            width: 100%;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-          }
+  > div {
+    padding: 0;
+  }
+}
 
-          .menu-trigger {
-            padding: 0 24px;
-            font-size: 18px;
-            line-height: 64px;
-            cursor: pointer;
-            transition: color 0.3s;
+// 树面板
+.tree-area {
+  width: 300px;
+  @extend .background-color;
+  @extend .padding;
+  @extend .flex-column;
 
-            &:hover {
-              color: #1890ff;
-            }
-          }
-        }
+  > .tree-search {
+    height: 32px;
+    margin: 0 0 10px 0;
+  }
 
-        .header-right {
-          .user-area {
-            display: flex;
-            align-items: center;
-          }
-        }
+  > .tree-content {
+    flex: 1;
+    overflow: auto;
+  }
+  & + .content-area {
+    &.grid-layout,
+    &.card-layout {
+      margin: 0 0 0 $--mp-size;
+    }
+    margin-left: $--mp-size;
+  }
+}
+
+.tree-grid-layout {
+  @extend .size;
+  @extend .margin;
+  @extend .tree-module-wrapper;
+}
+
+// 供左边树+右边列表模块使用
+.tree-module-wrapper {
+  display: flex;
+
+  > .content-area {
+    flex: 1;
+    overflow: auto;
+    @extend .flex;
+    @extend .flex-column;
+
+    > .grid-layout,
+    > .card-layout {
+      flex: 1;
+      overflow: auto;
+      height: 0;
+      margin: 0;
+
+      &:not(:first-child) {
+        margin-top: $--mp-size;
       }
     }
+  }
+}
 
-    .content-container {
-      position: relative;
-
-      .app-content {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        overflow: hidden auto;
-        // display: flex;
-        > .card-layout,
-        > .grid-layout {
-          @extend .size;
-        }
-
-        .card-layout {
-          flex: 1;
-          @extend .background-color;
-          @extend .flex-column;
-          @extend .flex;
-          @extend .margin;
-
-          .header-bar {
-            @extend .flex;
-            height: 36px;
-            font-size: 12px;
-            line-height: 36px;
-            padding: 0 10px;
-            background-color: #f9faff;
-            border-bottom: 1px solid #eaedf1;
-          }
-
-          > .content-area {
-            flex: 1;
-            overflow: auto;
-            padding: 10px;
-            @extend .flex;
-            @extend .flex-column;
-
-            > .grid-container {
-              flex: 1;
-              overflow: auto;
-            }
-          }
-        }
-
-        .grid-layout {
-          flex: 1;
-          @extend .flex;
-          @extend .flex-column;
-          @extend .background-color;
-          @extend .padding;
-          @extend .margin;
-
-          > .grid-container {
-            flex: 1;
-            overflow: auto;
-          }
-        }
-
-        // 查询栏
-        .search-bar {
-          & + .tool-bar {
-            padding-top: 10px;
-            border-top: 1px solid #eaedf1;
-          }
-
-          .el-form {
-            .el-form-item {
-              margin-right: 10px;
-
-              &:nth-last-child(2) {
-                margin-right: 10px;
-              }
-
-              &:last-child {
-                margin-right: 0;
-              }
-            }
-          }
-        }
-
-        // 工具栏
-        .tool-bar {
-          padding: 0 0 10px 0;
-        }
-
-        // 分页栏
-        .pagination-bar {
-          padding: 10px 0 0;
-          text-align: right;
-
-          > div {
-            padding: 0;
-          }
-        }
-
-        // 树面板
-        .tree-area {
-          width: 300px;
-          @extend .background-color;
-          @extend .padding;
-          @extend .flex-column;
-
-          > .tree-search {
-            height: 32px;
-            margin: 0 0 10px 0;
-          }
-
-          > .tree-content {
-            flex: 1;
-            overflow: auto;
-          }
-          & + .content-area {
-            &.grid-layout,
-            &.card-layout {
-              margin: 0 0 0 $--mp-size;
-            }
-            margin-left: $--mp-size;
-          }
-        }
-
-        .tree-grid-layout {
-          @extend .size;
-          @extend .margin;
-          @extend .tree-module-wrapper;
-        }
-
-        // 供左边树+右边列表模块使用
-        .tree-module-wrapper {
-          display: flex;
-
-          > .content-area {
-            flex: 1;
-            overflow: auto;
-            @extend .flex;
-            @extend .flex-column;
-
-            > .grid-layout,
-            > .card-layout {
-              flex: 1;
-              overflow: auto;
-              height: 0;
-              margin: 0;
-
-              &:not(:first-child) {
-                margin-top: $--mp-size;
-              }
-            }
-          }
-        }
-      }
-    }
+.app-content {
+  > .card-layout,
+  > .grid-layout {
+    @extend .size;
   }
 }
