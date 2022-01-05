@@ -103,10 +103,10 @@ export const asyncRoutes: IRoute[] = [
     ]
   },
   {
-    path: '/test',
-    title: '测试',
-    icon: 'AccountBookFilled',
-    component: 'Test'
+    path: '/permission',
+    title: '权限测试',
+    icon: 'LockOutlined',
+    component: 'PermissionTest'
   },
   {
     path: '/nest-1',

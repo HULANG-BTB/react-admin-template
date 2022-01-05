@@ -2,6 +2,7 @@ import React from 'react'
 
 type AuthComponentProps<E extends React.ElementType> = {
   as?: E
+  fallback?: React.ReactNode
   auth?: string | (() => boolean)
 }
 
@@ -9,7 +10,7 @@ type AuthProps<E extends React.ElementType> = AuthComponentProps<E> &
   Omit<React.ComponentProps<E>, keyof AuthComponentProps<E>>
 
 const Auth = <E extends React.ElementType>(props: AuthProps<E>) => {
-  const { as, auth, ...rest } = props
+  const { as, fallback, auth, ...rest } = props
   const Component = as ?? 'span'
   let hasAuth = false
 
@@ -24,7 +25,7 @@ const Auth = <E extends React.ElementType>(props: AuthProps<E>) => {
   if (hasAuth) {
     return <Component {...rest} />
   }
-  return null
+  return <>{fallback ? fallback : null}</>
 }
 
 export default Auth
