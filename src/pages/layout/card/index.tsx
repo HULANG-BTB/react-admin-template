@@ -1,4 +1,5 @@
 import { Button, Checkbox, Form, Input, Modal, Pagination, Table } from 'antd'
+import { title } from 'process'
 import React, { useState } from 'react'
 import Auth from '../../../components/Auth'
 import CardLayout from '../../../layout/CardLayout'
@@ -7,6 +8,8 @@ import './index.scss'
 
 const CardLayoutExample: React.FC = () => {
   const [form] = Form.useForm()
+
+  const [modelForm] = Form.useForm()
 
   const [tableHeight, setTableHeight] = useState(0)
 
@@ -21,16 +24,27 @@ const CardLayoutExample: React.FC = () => {
   const handleCancel = () => {
     setIsModalVisible(false)
   }
+  const handleAddRow = () => {
+    modelForm.resetFields()
+    setIsModalVisible(true)
+  }
+
+  const handleEditRow = (row: any) => {
+    modelForm.setFieldsValue(row)
+    modelForm
+
+    setIsModalVisible(true)
+  }
+  const handleViewRow = (row: any) => {
+    modelForm.setFieldsValue(row)
+    setIsModalVisible(true)
+  }
 
   return (
     <CardLayout
       headerBar={'标题'}
       toolBar={
-        <Auth
-          as={Button}
-          type="primary"
-          onClick={() => setIsModalVisible(true)}
-        >
+        <Auth as={Button} type="primary" onClick={() => handleAddRow()}>
           新增
         </Auth>
       }
@@ -69,11 +83,41 @@ const CardLayoutExample: React.FC = () => {
         <Table
           size="small"
           bordered
-          columns={columns}
           dataSource={data}
           pagination={false}
           scroll={{ y: tableHeight }}
-        />
+        >
+          {columns.map((item) => (
+            <Table.Column key={item.dataIndex} {...item} />
+          ))}
+          <Table.Column
+            title="Action"
+            key="action"
+            width={120}
+            align="center"
+            fixed="right"
+            render={(text, record) => {
+              return (
+                <>
+                  <Auth
+                    as={Button}
+                    type="link"
+                    onClick={() => handleEditRow(record)}
+                  >
+                    Edit
+                  </Auth>
+                  <Auth
+                    as={Button}
+                    type="link"
+                    onClick={() => handleViewRow(record)}
+                  >
+                    View
+                  </Auth>
+                </>
+              )
+            }}
+          />
+        </Table>
       }
       pagination={<Pagination defaultCurrent={6} total={500} />}
       resize={setTableHeight}
@@ -89,34 +133,32 @@ const CardLayoutExample: React.FC = () => {
       >
         <Form
           name="basic"
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 18 }}
-          initialValues={{ remember: true }}
+          form={modelForm}
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 19 }}
           onFinish={onFinish}
           autoComplete="off"
         >
           <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            label="Name"
+            name="name"
+            rules={[{ required: true, message: 'Please input your name!' }]}
           >
             <Input />
           </Form.Item>
-
           <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            label="Age"
+            name="age"
+            rules={[{ required: true, message: 'Please input your Age!' }]}
           >
-            <Input.Password />
+            <Input />
           </Form.Item>
-
           <Form.Item
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{ offset: 8, span: 16 }}
+            label="Address"
+            name="address"
+            rules={[{ required: true, message: 'Please input your Address!' }]}
           >
-            <Checkbox>Remember me</Checkbox>
+            <Input />
           </Form.Item>
         </Form>
       </Modal>
