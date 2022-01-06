@@ -13,7 +13,8 @@ export interface IRoute {
   query?: string // 查询参数
   hidden?: boolean // 是否隐藏
   redirect?: string // 重定向地址
-  needLogin?: boolean // 需要登录
+  needLogin?: boolean // 需要登录,
+  external?: boolean // 是否为外部地址（新窗口打开）
   children?: IRoute[]
 }
 
@@ -148,6 +149,12 @@ export const asyncRoutes: IRoute[] = [
         ]
       }
     ]
+  },
+  {
+    path: 'http://baidu.com',
+    title: '外部链接',
+    icon: 'LinkOutlined',
+    external: true
   }
 ]
 

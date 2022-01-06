@@ -48,7 +48,13 @@ const Sider: React.FC<SiderProps> = (props) => {
             title={route.title}
             icon={MenuIcon ? <MenuIcon /> : null}
           >
-            <Link to={route.path}>{route.title}</Link>
+            {route.external === true ? (
+              <a href={route.path} target="_blank">
+                {route.title}
+              </a>
+            ) : (
+              <Link to={route.path}>{route.title}</Link>
+            )}
           </Menu.Item>
         )
       })

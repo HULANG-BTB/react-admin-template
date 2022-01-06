@@ -28,6 +28,9 @@ const Router: React.FC = () => {
           />
         )
       }
+      if (route.external === true) {
+        return null
+      }
       const Component = route.component && allComponents[route.component]
       if (route.children) {
         return (
