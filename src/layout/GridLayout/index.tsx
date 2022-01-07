@@ -34,7 +34,7 @@ const GridLayout: React.FC<GridLayoutProps> = (props) => {
   const handleRootElementResize = debounce(() => {
     if (root) {
       const newHeight =
-        (root.querySelector('.grid-container')?.clientHeight ?? 40) - 40
+        (root.querySelector('.grid-container')?.clientHeight ?? 42) - 42
       if (tableHeight !== newHeight) {
         tableHeight = newHeight
         resize?.(tableHeight)

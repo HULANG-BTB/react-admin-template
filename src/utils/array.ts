@@ -27,7 +27,7 @@ export const arrayToTree = (data: any[], pid: any = null) => {
  * @param data 属带有children的树形数据
  * @returns 返回扁平后的数组
  */
-export const treeToArray = (data: any[]) => {
+export const treeToArray = <T>(data: any[]): T[] => {
   const ret: any = []
   data.forEach((item) => {
     ret.push(item)

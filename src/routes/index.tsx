@@ -6,23 +6,23 @@ import {
   Routes
 } from 'react-router-dom'
 import React from 'react'
-import { IRoute, routes } from './routes'
-import { layout } from '../layout'
-import { components } from '../pages'
-import { uuid } from '../utils/string'
-
-const allComponents = {
-  ...layout,
-  ...components
-}
+import { IRoute, staticRoutes } from './routes'
+import BaseLayout from '../layout/BaseLayout'
+import { useSelector } from 'react-redux'
+import { RootState } from '../redux'
+import { SystemState } from '../redux/system/state'
 
 const Router: React.FC = () => {
+  const systemStore = useSelector<RootState, SystemState>(
+    (state) => state.system
+  )
+
   const createRoutes = (routes: IRoute[]) => {
     return routes.map((route) => {
       if (route.redirect) {
         return (
           <Route
-            key={uuid()}
+            key={route.path}
             path={route.path}
             element={<Navigate to={route.redirect} />}
           />
@@ -31,36 +31,47 @@ const Router: React.FC = () => {
       if (route.external === true) {
         return null
       }
-      const Component = route.component && allComponents[route.component]
       if (route.children) {
         return (
-          <Route
-            key={uuid()}
-            path={route.path}
-            element={Component ? <Component /> : <Outlet />}
-          >
+          <Route key={route.path} path={route.path} element={<Outlet />}>
             <Route
               key={route.path}
               path={route.path}
               element={<Navigate to={route.children[0].path} />}
-            ></Route>
+            />
             {createRoutes(route.children)}
           </Route>
         )
       }
       return (
-        <Route
-          key={uuid()}
-          path={route.path}
-          element={Component ? <Component /> : null}
-        />
+        <Route key={route.path} path={route.path} element={<BaseLayout />} />
       )
     })
   }
 
+  const routes = [
+    {
+      path: '/',
+      title: '',
+      children: systemStore.menus
+    },
+    ...staticRoutes
+  ]
+
   return (
     <BrowserRouter>
-      <Routes>{createRoutes(routes)}</Routes>
+      <Routes>
+        {/* {asyncRoutes.map((route) => {
+          return (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={<BaseLayout />}
+            />
+          )
+        })} */}
+        {createRoutes(routes)}
+      </Routes>
     </BrowserRouter>
   )
 }

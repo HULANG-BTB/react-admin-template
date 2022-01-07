@@ -1,35 +1,71 @@
 import { Menu } from 'antd'
 import React from 'react'
 import * as Icon from '@ant-design/icons'
-import { Link, useLocation, useMatch } from 'react-router-dom'
+import { matchRoutes, useLocation, useNavigate } from 'react-router-dom'
 import { asyncRoutes, IRoute } from '../../routes/routes'
-import { RouteMatched } from '.'
+import { useDispatch, useSelector } from 'react-redux'
+import { SystemActionType } from '../../redux/system/action'
+import { RootState } from '../../redux'
+import { SystemState } from '../../redux/system/state'
 
-export interface SiderProps {
-  collapsed?: boolean
-}
+const Sider: React.FC = () => {
+  const systemStore = useSelector<RootState, SystemState>(
+    (state) => state.system
+  )
 
-const Sider: React.FC<SiderProps> = (props) => {
-  let { pathname } = useLocation()
+  const dispatch = useDispatch()
 
-  const routeMatches: RouteMatched[] = []
+  const navigate = useNavigate()
+
+  const location = useLocation()
+
+  const onOpenMenu = (route: IRoute) => {
+    if (route.external) {
+      window.open(route.path)
+    } else if (route.component) {
+      navigate(route.path)
+      dispatch({
+        type: SystemActionType.ADD_TAG_VIEW,
+        payload: route.path
+      })
+    } else {
+      navigate('/404')
+    }
+  }
+
+  const defaultOpenKeys: string[] = []
+
+  const matches = matchRoutes(systemStore.menus, location) || []
+
+  if (matches.length > 0) {
+    if (matches.length >= 2) {
+      for (let index = 0; index < matches.length - 1; index++) {
+        defaultOpenKeys.push(matches[index].pathname)
+      }
+    }
+    const { route } = matches[matches.length - 1]
+
+    if (
+      systemStore.tagViews.findIndex((item) => item.path === route.path) === -1
+    ) {
+      navigate(route.path || '/')
+      dispatch({
+        type: SystemActionType.ADD_TAG_VIEW,
+        payload: route.path
+      })
+    }
+    if (systemStore.currentTagView !== route.path) {
+      dispatch({
+        type: SystemActionType.SET_TAG_VIEW,
+        payload: route.path
+      })
+    }
+  }
 
   const createMenu = (routes: IRoute[]) => {
     return routes
       .filter((route) => route.hidden !== true)
       .map((route) => {
-        const matched = useMatch({
-          path: route.path,
-          end: false
-        })
-
-        if (matched) {
-          routeMatches.push({
-            title: route.title,
-            path: route.path
-          })
-        }
-
         const MenuIcon = route.icon && (Icon[route.icon] as React.FC)
         if (route.children) {
           return (
@@ -47,20 +83,15 @@ const Sider: React.FC<SiderProps> = (props) => {
             key={route.path}
             title={route.title}
             icon={MenuIcon ? <MenuIcon /> : null}
+            onClick={() => onOpenMenu(route)}
           >
-            {route.external === true ? (
-              <a href={route.path} target="_blank">
-                {route.title}
-              </a>
-            ) : (
-              <Link to={route.path}>{route.title}</Link>
-            )}
+            {route.title}
           </Menu.Item>
         )
       })
   }
 
-  const menus = createMenu(asyncRoutes)
+  console.log(systemStore.tagViews)
 
   return (
     <div className="aside">
@@ -68,10 +99,10 @@ const Sider: React.FC<SiderProps> = (props) => {
       <Menu
         theme="dark"
         mode="inline"
-        defaultSelectedKeys={[pathname]}
-        defaultOpenKeys={routeMatches.map((match) => match.path)}
+        defaultOpenKeys={defaultOpenKeys}
+        selectedKeys={[systemStore.currentTagView]}
       >
-        {menus}
+        {createMenu(systemStore.menus)}
       </Menu>
     </div>
   )

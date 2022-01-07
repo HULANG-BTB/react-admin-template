@@ -1,5 +1,4 @@
 import { RouteComponent } from '../pages'
-import { LayoutComponent } from '../layout'
 
 import * as Icon from '@ant-design/icons'
 
@@ -9,12 +8,14 @@ export interface IRoute {
   path: string
   title: string // 标题
   icon?: IconType // 图标
-  component?: RouteComponent | LayoutComponent // 组件
+  component?: RouteComponent // 组件
   query?: string // 查询参数
   hidden?: boolean // 是否隐藏
   redirect?: string // 重定向地址
   needLogin?: boolean // 需要登录,
   external?: boolean // 是否为外部地址（新窗口打开）
+  noCache?: boolean // 如果为 true 切换时组件会被销毁
+  affix?: boolean // 如果为 true 菜单会固定打tag-views
   children?: IRoute[]
 }
 
@@ -54,7 +55,8 @@ export const asyncRoutes: IRoute[] = [
     path: '/dashboard',
     title: '仪表盘',
     icon: 'DashboardOutlined',
-    component: 'Home'
+    component: 'Home',
+    affix: true
   },
   {
     path: '/layout',
@@ -163,7 +165,6 @@ export const routes: IRoute[] = [
   {
     path: '/',
     title: '',
-    component: 'BaseLayout',
     children: asyncRoutes
   }
 ]

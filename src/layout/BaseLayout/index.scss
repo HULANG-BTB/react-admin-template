@@ -11,9 +11,10 @@
       .logo {
         height: 32px;
         line-height: 1;
-        margin: 16px;
+        margin: 14px 0;
         color: #fff;
-        text-align: center;
+        text-align: left;
+        padding-left: 14px;
         font-size: 30px;
         opacity: 1;
         transform: translateX(0);
@@ -25,8 +26,12 @@
 
   .main-container {
     .header-container {
+      height: 50px;
+      line-height: 1;
+
       .header {
         background-color: #fff;
+        box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
         display: flex;
         justify-content: space-between;
 
@@ -49,7 +54,7 @@
           .menu-trigger {
             padding: 0 24px;
             font-size: 18px;
-            line-height: 64px;
+            line-height: 50px;
             cursor: pointer;
             transition: color 0.3s;
 
@@ -76,6 +81,55 @@
         width: 100%;
         height: 100%;
         overflow: hidden auto;
+
+        .tag-views-container {
+          height: 100%;
+          width: 100%;
+
+          > .ant-tabs-nav {
+            border-top: 1px solid #eaedf1;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 12%), 0 0 3px 0 rgb(0 0 0 / 4%);
+            background-color: #fff;
+            margin: 0;
+            height: 28px;
+            user-select: none;
+
+            .ant-tabs-nav-more {
+              padding: 0 16px;
+            }
+
+            .ant-tabs-tab-remove {
+              margin-left: 0;
+              margin-right: -6px;
+            }
+
+            .ant-tabs-nav-list {
+              align-items: center;
+              > .ant-tabs-tab {
+                height: 24px;
+                padding: 6px;
+                font-size: 12px;
+              }
+            }
+
+            .ant-tabs-tab-active {
+              background-color: #42b983;
+              > .ant-tabs-tab-btn {
+                color: #fff;
+              }
+            }
+          }
+
+          > .ant-tabs-content-holder {
+            position: relative;
+            .route-tab-pane {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              display: flex;
+            }
+          }
+        }
       }
     }
   }

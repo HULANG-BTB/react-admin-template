@@ -1,7 +1,15 @@
+import { IRoute } from '../../routes/routes'
+
 export interface SystemState {
-  menus: any[]
+  menus: IRoute[]
+  flatMenus: IRoute[]
+  tagViews: IRoute[]
+  currentTagView: string
 }
 
 export const state: SystemState = {
-  menus: []
+  menus: [],
+  flatMenus: [],
+  tagViews: [],
+  currentTagView: ''
 }

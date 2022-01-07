@@ -24,7 +24,7 @@ const BaseLayout: React.FC = () => {
         collapsible
         collapsed={collapsed}
       >
-        <Sider collapsed={collapsed} />
+        <Sider />
       </Layout.Sider>
       <Layout className="main-container">
         <Layout.Header className="header-container" style={{ padding: 0 }}>

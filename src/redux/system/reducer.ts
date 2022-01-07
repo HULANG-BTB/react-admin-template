@@ -1,9 +1,9 @@
-import { MenuAction, actions } from './action'
+import { SystemAction, actions } from './action'
 import { SystemState, state as systemState } from './state'
 
 export const reducer = (
   state: SystemState = systemState,
-  action: MenuAction
+  action: SystemAction
 ): SystemState => {
-  return actions[action.type]?.(state) ?? state
+  return actions[action.type]?.(state, action.payload) ?? state
 }
