@@ -9,17 +9,13 @@
       height: 100vh;
       overflow-y: auto;
       .logo {
-        height: 32px;
+        height: 30px;
         line-height: 1;
-        margin: 14px 0;
+        margin: 10px 14px;
         color: #fff;
         text-align: left;
-        padding-left: 14px;
         font-size: 30px;
-        opacity: 1;
-        transform: translateX(0);
-        transition: opacity 0.3s ease-in 0.3s;
-        transition: transform 0.3s ease-in 0.3s;
+        background: rgba(255, 255, 255, 0.3);
       }
     }
   }
@@ -132,12 +128,5 @@
         }
       }
     }
-  }
-}
-
-.ant-layout-sider-collapsed {
-  .logo {
-    transform: translateX(-500%) !important;
-    opacity: 0 !important;
   }
 }

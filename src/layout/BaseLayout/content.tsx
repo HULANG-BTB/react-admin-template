@@ -1,5 +1,5 @@
 import { Dropdown, Menu, Tabs } from 'antd'
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Loading from '../../components/Loading'
@@ -50,7 +50,7 @@ const Content: React.FC = (props) => {
     }
   }
 
-  const contextMenu = (
+  const menu = (
     <Menu>
       <Menu.Item key="1">1st menu item</Menu.Item>
       <Menu.Item key="2">2nd menu item</Menu.Item>
@@ -67,9 +67,6 @@ const Content: React.FC = (props) => {
         activeKey={systemStore.currentTagView}
         type="editable-card"
         onEdit={onEdit}
-        renderTabBar={(props, DefaultTabBar) => {
-          return <DefaultTabBar {...props} />
-        }}
       >
         {systemStore.tagViews.map((tagView) => {
           const Component = tagView.component && components[tagView.component]

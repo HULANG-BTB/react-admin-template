@@ -93,7 +93,7 @@ const Sider: React.FC = () => {
 
   return (
     <div className="aside">
-      <div className="logo">Oibit-Admin</div>
+      <div className="logo"></div>
       <Menu
         theme="dark"
         mode="inline"
