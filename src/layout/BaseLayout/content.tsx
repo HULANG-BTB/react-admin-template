@@ -78,7 +78,7 @@ const Content: React.FC = (props) => {
               className="route-tab-pane"
               tab={tagView.title}
               key={tagView.path}
-              closable={!tagView.affix || systemStore.tagViews.length === 1}
+              closable={!tagView.affix && systemStore.tagViews.length !== 1}
             >
               <Suspense fallback={<Loading />}>
                 {Component ? <Component /> : null}

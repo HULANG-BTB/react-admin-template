@@ -91,8 +91,6 @@ const Sider: React.FC = () => {
       })
   }
 
-  console.log(systemStore.tagViews)
-
   return (
     <div className="aside">
       <div className="logo">Oibit-Admin</div>
